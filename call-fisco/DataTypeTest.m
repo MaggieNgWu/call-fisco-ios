@@ -115,7 +115,7 @@
 	NSArray * __resArr = @[
         @{
             @"type":@"uint8",
-            @"value":@(teArg)
+            @"value":[NSString stringWithFormat:@"%u", teArg]
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
@@ -182,8 +182,7 @@
             @"value":[NSString stringWithFormat:@"%.0lf", int64Arg]
         }
     ];
-	NSString *__params = [self __arrayToJsonString:__resArr];
-    NSLog(@"%@",__params);
+	NSString *__params = [self __stringFromArr:__resArr];
 	return FiscoBcosMobileSendTransaction(_abi,_address,@"storeInt",__params);
 }
 
@@ -260,22 +259,22 @@
         },
 		@{
             @"type":@"uint8",
-            @"value":[NSString stringWithFormat:@"\"%d\"", uint8Arg]
+            @"value":[NSString stringWithFormat:@"%u", uint8Arg]
         },
 		@{
             @"type":@"uint16",
-            @"value":[NSString stringWithFormat:@"\"%d\"", uint16Arg]
+            @"value":[NSString stringWithFormat:@"%u", uint16Arg]
         },
 		@{
             @"type":@"uint32",
-            @"value":[NSString stringWithFormat:@"\"%d\"", uint32Arg]
+            @"value":[NSString stringWithFormat:@"%u", uint32Arg]
         },
 		@{
             @"type":@"uint64",
-            @"value":[NSString stringWithFormat:@"\"%f\"", uint64Arg]
+            @"value":[NSString stringWithFormat:@"%.0lf", uint64Arg]
         }
     ];
-	NSString *__params = [self __arrayToJsonString:__resArr];
+	NSString *__params = [self __stringFromArr:__resArr];
 	return FiscoBcosMobileSendTransaction(_abi,_address,@"storeUint",__params);
 }
 
@@ -287,31 +286,20 @@
 }
 
 - (NSString *)__stringFromArr:(NSArray *)arr{
-    NSMutableString * result = [[NSMutableString alloc] init];
-    for (NSObject * obj in arr)
-    {
-        [result appendString:[obj description]];
-    }
-    return result;
-}
-
-- (NSString *)__arrayToJsonString:(id )transition{
-    NSString *jsonString = nil;
+	NSString *jsonString = nil;
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:transition
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr
+                                                       options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     if (! jsonData) {
         NSLog(@"Got an error: %@", error);
-        return @"转化失败";
-        
+        return @"[???]";
     } else {
-        
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
         return jsonString;
-        
     }
 }
+
+
 @end
 

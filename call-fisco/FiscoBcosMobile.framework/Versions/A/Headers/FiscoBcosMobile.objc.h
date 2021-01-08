@@ -51,7 +51,8 @@
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
 @property (nonatomic) NSString* _Nonnull valueType;
-@property (nonatomic) NSString* _Nonnull value;
+// skipped field ContractParams.Value with unsupported type: interface{}
+
 @end
 
 @interface FiscoBcosMobileDeployContractResult : NSObject <goSeqRefInterface> {
