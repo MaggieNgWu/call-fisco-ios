@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F3878A525A87565007C4C18 /* Fiscobcosios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3878A425A87564007C4C18 /* Fiscobcosios.framework */; };
 		9F5AC3F425A72ECA00BA49E6 /* DataTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5AC3F225A72ECA00BA49E6 /* DataTypeTest.m */; };
 		9F7B7F582563BC9100C1E65F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B7F572563BC9100C1E65F /* AppDelegate.m */; };
 		9F7B7F5B2563BC9100C1E65F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B7F5A2563BC9100C1E65F /* SceneDelegate.m */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F3878A425A87564007C4C18 /* Fiscobcosios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fiscobcosios.framework; sourceTree = "<group>"; };
 		9F5AC3F225A72ECA00BA49E6 /* DataTypeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTypeTest.m; sourceTree = "<group>"; };
 		9F5AC3F325A72ECA00BA49E6 /* DataTypeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTypeTest.h; sourceTree = "<group>"; };
 		9F7B7F532563BC9100C1E65F /* call-fisco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "call-fisco.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F3878A525A87565007C4C18 /* Fiscobcosios.framework in Frameworks */,
 				9F7DA73D25A47243007D522B /* FiscoBcosMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,12 +128,10 @@
 			isa = PBXGroup;
 			children = (
 				9F7DA73C25A47243007D522B /* FiscoBcosMobile.framework */,
-				9F7B7FA82563D6D000C1E65F /* key.pem */,
+				9F3878A425A87564007C4C18 /* Fiscobcosios.framework */,
 				9F5AC3F325A72ECA00BA49E6 /* DataTypeTest.h */,
 				9F5AC3F225A72ECA00BA49E6 /* DataTypeTest.m */,
-				9F7B7F562563BC9100C1E65F /* AppDelegate.h */,
-				9F7B7F572563BC9100C1E65F /* AppDelegate.m */,
-				9F7B7F592563BC9100C1E65F /* SceneDelegate.h */,
+				9F7B7FA82563D6D000C1E65F /* key.pem */,
 				9F7B7F982563BF9500C1E65F /* ca.crt */,
 				9F7B7F992563BF9500C1E65F /* node.crt */,
 				9F7B7F952563BF9500C1E65F /* node.key */,
@@ -140,6 +141,9 @@
 				9F7B7F5A2563BC9100C1E65F /* SceneDelegate.m */,
 				9F7B7F5C2563BC9100C1E65F /* ViewController.h */,
 				9F95AF00258B61E200348D9D /* ViewController.m */,
+				9F7B7F562563BC9100C1E65F /* AppDelegate.h */,
+				9F7B7F572563BC9100C1E65F /* AppDelegate.m */,
+				9F7B7F592563BC9100C1E65F /* SceneDelegate.h */,
 				9F7B7F5F2563BC9100C1E65F /* Main.storyboard */,
 				9F7B7F622563BC9100C1E65F /* Assets.xcassets */,
 				9F7B7F642563BC9100C1E65F /* LaunchScreen.storyboard */,

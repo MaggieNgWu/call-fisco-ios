@@ -1,0 +1,8 @@
+framework module "Fiscobcosios" {
+	header "ref.h"
+    header "Fiscobcosios.objc.h"
+    header "Universe.objc.h"
+    header "Fiscobcosios.h"
+
+    export *
+}

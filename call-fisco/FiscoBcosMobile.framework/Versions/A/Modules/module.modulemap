@@ -1,8 +1,0 @@
-framework module "FiscoBcosMobile" {
-	header "ref.h"
-    header "FiscoBcosMobile.objc.h"
-    header "Universe.objc.h"
-    header "FiscoBcosMobile.h"
-
-    export *
-}

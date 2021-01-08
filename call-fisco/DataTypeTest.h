@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "FiscoBcosMobile.framework/Headers/FiscoBcosMobile.h"
+#import "Fiscobcosios.framework/Headers/Fiscobcosios.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,43 +13,46 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithAddress:(NSString *)addr;
 
 /// deploy 
-- (FiscoBcosMobileDeployContractResult*)  deploy ;
+- (FiscobcosiosDeployContractResult*)  deploy ;
 
 
 /// retrieve
-- (FiscoBcosMobileCallResult *) retrieve ;
+- (FiscobcosiosCallResult *) retrieve ;
+
+/// retrieveArray
+- (FiscobcosiosCallResult *) retrieveArray ;
 
 
 
 /// storeAddress
 /// @param adArg address type argument, please note this argument only accept hex encoded strings.
-- (FiscoBcosMobileTransactResult *) storeAddress  :(NSString *) adArg;
+- (FiscobcosiosTransactResult *) storeAddress  :(NSString *) adArg;
 
 /// storeBigInt
 /// @param int256Arg int256 type argument
-- (FiscoBcosMobileTransactResult *) storeBigInt  :(NSString *) int256Arg;
+- (FiscobcosiosTransactResult *) storeBigInt  :(NSString *) int256Arg;
 
 /// storeBool
 /// @param boolArg bool type argument
-- (FiscoBcosMobileTransactResult *) storeBool  :(BOOL) boolArg;
+- (FiscobcosiosTransactResult *) storeBool  :(BOOL) boolArg;
 
 /// storeByteArray
 /// @param b32arArg bytes32[] type argument, please note this argument only accept hex encoded strings.
-- (FiscoBcosMobileTransactResult *) storeByteArray  :(NSArray *) b32arArg;
+- (FiscobcosiosTransactResult *) storeByteArray  :(NSArray *) b32arArg;
 
 /// storeBytes
 /// @param bytesArg bytes type argument, please note this argument only accept hex encoded strings.
-- (FiscoBcosMobileTransactResult *) storeBytes  :(NSString *) bytesArg;
+- (FiscobcosiosTransactResult *) storeBytes  :(NSString *) bytesArg;
 
 /// storeEmum
 /// @param teArg uint8 type argument
-- (FiscoBcosMobileTransactResult *) storeEmum  :(unsigned int) teArg;
+- (FiscobcosiosTransactResult *) storeEmum  :(unsigned int) teArg;
 
 /// storeFixedBytes
 /// @param byte1Arg bytes1 type argument, please note this argument only accept hex encoded strings.
 /// @param byte5Arg bytes5 type argument, please note this argument only accept hex encoded strings.
 /// @param byte32Arg bytes32 type argument, please note this argument only accept hex encoded strings.
-- (FiscoBcosMobileTransactResult *) storeFixedBytes  :(NSString *) byte1Arg 
+- (FiscobcosiosTransactResult *) storeFixedBytes  :(NSString *) byte1Arg 
 	byte5Arg:(NSString *) byte5Arg 
 	byte32Arg:(NSString *) byte32Arg;
 
@@ -59,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param int16Arg int16 type argument
 /// @param int32Arg int32 type argument
 /// @param int64Arg int64 type argument
-- (FiscoBcosMobileTransactResult *) storeInt  :(NSString *) intArg 
+- (FiscobcosiosTransactResult *) storeInt  :(NSString *) intArg 
 	int8Arg:(int) int8Arg 
 	int16Arg:(int) int16Arg 
 	int32Arg:(int) int32Arg 
@@ -69,17 +72,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param iarArg int256[] type argument
 /// @param i64arArg int64[] type argument
 /// @param i256arArg int256[] type argument
-- (FiscoBcosMobileTransactResult *) storeIntArray  :(NSArray *) iarArg 
+- (FiscobcosiosTransactResult *) storeIntArray  :(NSArray *) iarArg 
 	i64arArg:(NSArray *) i64arArg 
 	i256arArg:(NSArray *) i256arArg;
 
 /// storeStr
 /// @param strArg string type argument
-- (FiscoBcosMobileTransactResult *) storeStr  :(NSString *) strArg;
+- (FiscobcosiosTransactResult *) storeStr  :(NSString *) strArg;
 
 /// storeUBigInt
 /// @param uint256Arg uint256 type argument
-- (FiscoBcosMobileTransactResult *) storeUBigInt  :(NSString *) uint256Arg;
+- (FiscobcosiosTransactResult *) storeUBigInt  :(NSString *) uint256Arg;
 
 /// storeUint
 /// @param uintArg uint256 type argument
@@ -87,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param uint16Arg uint16 type argument
 /// @param uint32Arg uint32 type argument
 /// @param uint64Arg uint64 type argument
-- (FiscoBcosMobileTransactResult *) storeUint  :(NSString *) uintArg 
+- (FiscobcosiosTransactResult *) storeUint  :(NSString *) uintArg 
 	uint8Arg:(unsigned int) uint8Arg 
 	uint16Arg:(unsigned int) uint16Arg 
 	uint32Arg:(unsigned int) uint32Arg 

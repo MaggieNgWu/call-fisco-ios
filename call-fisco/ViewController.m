@@ -22,14 +22,14 @@
     // Do any additional setup after loading the view.
     NSString *path = [NSBundle mainBundle].bundlePath;
     NSString *endpoint = @"localhost:8170";
-    NSString *result = FiscoBcosMobileBuildSDKWithParam(path, @"1", endpoint, @"key.pem" );
+    NSString *result = FiscobcosiosBuildSDKWithParam(path, @"1", endpoint, @"key.pem" );
     NSLog(@"connect result:%@",result);
 }
 
 //RPC getClientVersion
 - (IBAction)getversion:(id)sender {
     UIAlertController *alertController;
-    FiscoBcosMobileRPCResult* result = FiscoBcosMobileGetClientVersion();
+    FiscobcosiosRPCResult* result = FiscobcosiosGetClientVersion();
     if (result.errorInfo.length != 0){
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
     }else{
@@ -44,7 +44,7 @@
 - (IBAction)reconnect:(id)sender {
     NSString *path = [NSBundle mainBundle].bundlePath;
     NSString *endpoint = @"localhost:8170";
-    NSString *result = FiscoBcosMobileBuildSDKWithParam(path, @"1", endpoint, @"key.pem" );
+    NSString *result = FiscobcosiosBuildSDKWithParam(path, @"1", endpoint, @"key.pem" );
     NSLog(@"connect result:%@",result);
 }
 
@@ -52,7 +52,7 @@
 - (IBAction)deploy:(id)sender {
     UIAlertController *alertController;
     DataTypeTest *contract = [DataTypeTest new];
-    FiscoBcosMobileDeployContractResult *dr = [contract deploy];
+    FiscobcosiosDeployContractResult *dr = [contract deploy];
    
     if (dr.errorInfo.length != 0){
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:dr.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -76,7 +76,7 @@
     double a = 10000000;
     int i = 9;
 
-    FiscoBcosMobileTransactResult *result = [contract storeInt:@"111" int8Arg:i int16Arg:i int32Arg:i int64Arg:a];
+    FiscobcosiosTransactResult *result = [contract storeInt:@"111" int8Arg:i int16Arg:i int32Arg:i int64Arg:a];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -97,7 +97,7 @@
     double a = 10000000;
     unsigned int i = 9;
 
-    FiscoBcosMobileTransactResult *result = [contract storeUint:@"111" uint8Arg:i uint16Arg:i uint32Arg:i uint64Arg:a];
+    FiscobcosiosTransactResult *result = [contract storeUint:@"111" uint8Arg:i uint16Arg:i uint32Arg:i uint64Arg:a];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -115,7 +115,7 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress];
 
-    FiscoBcosMobileTransactResult *result = [contract storeBigInt:@"111111111"];
+    FiscobcosiosTransactResult *result = [contract storeBigInt:@"111111111"];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -133,7 +133,7 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress];
 
-    FiscoBcosMobileTransactResult *result = [contract storeAddress:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
+    FiscobcosiosTransactResult *result = [contract storeAddress:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -152,7 +152,7 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress];
 
-    FiscoBcosMobileTransactResult *result = [contract storeFixedBytes:@"0x1" byte5Arg:@"0x123456"byte32Arg:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
+    FiscobcosiosTransactResult *result = [contract storeFixedBytes:@"0x1" byte5Arg:@"0x123456"byte32Arg:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -170,7 +170,7 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress];
 
-    FiscoBcosMobileTransactResult *result = [contract storeBytes:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
+    FiscobcosiosTransactResult *result = [contract storeBytes:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -193,7 +193,7 @@
         @"0x23898"
     ];
 
-    FiscoBcosMobileTransactResult *result = [contract storeByteArray:arr];
+    FiscobcosiosTransactResult *result = [contract storeByteArray:arr];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
@@ -214,13 +214,64 @@
     
     BOOL b = YES;
 
-    FiscoBcosMobileTransactResult *result = [contract storeBool:b];
+    FiscobcosiosTransactResult *result = [contract storeBool:b];
     if (result.errorInfo.length != 0){
         NSLog(@"send tx error : %@", result.errorInfo);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
+    }
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (IBAction)intArray:(id)sender {
+    UIAlertController *alertController;
+    DataTypeTest *contract;
+    contract = [DataTypeTest alloc];
+    contract = [contract initWithAddress:_contractAddress];
+    
+    NSArray *a1 = @[
+        @"1233",
+        @"4231"
+    ];
+    
+    double a = 10000;
+    NSArray *a2 = @[
+        @(a),
+        @(a)
+    ];
+
+    NSArray *a3 = @[
+        @"1233",
+        @"4231"
+    ];
+    FiscobcosiosTransactResult *result = [contract storeIntArray:a1 i64arArg:a2 i256arArg:a3];
+    if (result.errorInfo.length != 0){
+        NSLog(@"call retrival : %@", result.errorInfo);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    }else{
+        NSLog(@"send retrival : %@", result.receipt.blockNumber);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
+    }
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (IBAction)getArray:(id)sender {
+    UIAlertController *alertController;
+    DataTypeTest *contract;
+    contract = [DataTypeTest alloc];
+    contract = [contract initWithAddress:_contractAddress];
+
+    FiscobcosiosCallResult *result = [contract retrieveArray];
+    if (result.errorInfo.length != 0){
+        NSLog(@"send tx error : %@", result.errorInfo);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    }else{
+        NSLog(@"send tx success : %@", result.result);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.result preferredStyle:UIAlertControllerStyleAlert];
     }
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];
