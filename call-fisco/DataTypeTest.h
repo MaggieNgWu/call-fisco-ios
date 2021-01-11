@@ -4,6 +4,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
+// Class0 is an auto generated low-level Go binding around an user-defined struct.
+struct Class0{
+int value ;
+int date ;
+
+};
+
+
 @interface DataTypeTest : NSObject
 
 @property (nonatomic, copy) NSString *address;
@@ -79,6 +87,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// storeStr
 /// @param strArg string type argument
 - (FiscobcosiosTransactResult *) storeStr  :(NSString *) strArg;
+
+/// storeStruct
+/// @param structArg (int32,int32) type argument
+- (FiscobcosiosTransactResult *) storeStruct  :(struct Class0) structArg;
 
 /// storeUBigInt
 /// @param uint256Arg uint256 type argument

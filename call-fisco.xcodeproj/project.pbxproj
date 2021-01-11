@@ -24,7 +24,6 @@
 		9F7B7F9E2563BF9500C1E65F /* ca.crt in Resources */ = {isa = PBXBuildFile; fileRef = 9F7B7F982563BF9500C1E65F /* ca.crt */; };
 		9F7B7F9F2563BF9500C1E65F /* node.crt in Resources */ = {isa = PBXBuildFile; fileRef = 9F7B7F992563BF9500C1E65F /* node.crt */; };
 		9F7B7FA92563D6D000C1E65F /* key.pem in Resources */ = {isa = PBXBuildFile; fileRef = 9F7B7FA82563D6D000C1E65F /* key.pem */; };
-		9F7DA73D25A47243007D522B /* FiscoBcosMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7DA73C25A47243007D522B /* FiscoBcosMobile.framework */; };
 		9F95AF01258B61E200348D9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F95AF00258B61E200348D9D /* ViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +72,6 @@
 		9F7B7F982563BF9500C1E65F /* ca.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca.crt; sourceTree = "<group>"; };
 		9F7B7F992563BF9500C1E65F /* node.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = node.crt; sourceTree = "<group>"; };
 		9F7B7FA82563D6D000C1E65F /* key.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = key.pem; sourceTree = "<group>"; };
-		9F7DA73C25A47243007D522B /* FiscoBcosMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FiscoBcosMobile.framework; sourceTree = "<group>"; };
 		9F95AF00258B61E200348D9D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +81,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F3878A525A87565007C4C18 /* Fiscobcosios.framework in Frameworks */,
-				9F7DA73D25A47243007D522B /* FiscoBcosMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +124,6 @@
 		9F7B7F552563BC9100C1E65F /* call-fisco */ = {
 			isa = PBXGroup;
 			children = (
-				9F7DA73C25A47243007D522B /* FiscoBcosMobile.framework */,
 				9F3878A425A87564007C4C18 /* Fiscobcosios.framework */,
 				9F5AC3F325A72ECA00BA49E6 /* DataTypeTest.h */,
 				9F5AC3F225A72ECA00BA49E6 /* DataTypeTest.m */,

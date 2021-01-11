@@ -259,6 +259,28 @@
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+- (IBAction)sendStruct:(id)sender {
+    UIAlertController *alertController;
+    DataTypeTest *contract;
+    contract = [DataTypeTest alloc];
+    contract = [contract initWithAddress:_contractAddress];
+    
+    struct Class0 a;
+    a.date = 122;
+    a.value =333;
+
+    FiscobcosiosTransactResult *result = [contract storeStruct:a];
+    if (result.errorInfo.length != 0){
+        NSLog(@"send tx error : %@", result.errorInfo);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    }else{
+        NSLog(@"send tx success : %@", result.receipt.blockNumber);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
+    }
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 - (IBAction)getArray:(id)sender {
     UIAlertController *alertController;
     DataTypeTest *contract;

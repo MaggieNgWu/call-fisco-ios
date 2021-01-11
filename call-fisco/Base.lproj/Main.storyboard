@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ldf-Ow-Typ">
-                                <rect key="frame" x="20" y="417" width="90" height="30"/>
+                                <rect key="frame" x="20" y="430" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Call Function"/>
                                 <connections>
@@ -118,6 +118,14 @@
                                     <action selector="SendBool:" destination="BYZ-38-t0r" eventType="touchDown" id="QSk-dq-g5G"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Juf-Sf-jQI">
+                                <rect key="frame" x="20" y="405" width="91" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Call GetArray"/>
+                                <connections>
+                                    <action selector="getArray:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cEg-ph-kXn"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j7x-QJ-FsI">
                                 <rect key="frame" x="20" y="348" width="98" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -126,12 +134,12 @@
                                     <action selector="intArray:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hw6-6o-Aah"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Juf-Sf-jQI">
-                                <rect key="frame" x="20" y="374" width="91" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pa-bl-O9m">
+                                <rect key="frame" x="20" y="375" width="82" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Call GetArray"/>
+                                <state key="normal" title="Send Struct"/>
                                 <connections>
-                                    <action selector="getArray:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cEg-ph-kXn"/>
+                                    <action selector="sendStruct:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ebr-8K-YtI"/>
                                 </connections>
                             </button>
                         </subviews>
