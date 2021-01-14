@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9F3878A525A87565007C4C18 /* Fiscobcosios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3878A425A87564007C4C18 /* Fiscobcosios.framework */; };
+		9F5001A125B02AA10086163F /* FiscoBcosIosSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F5001A025B02AA10086163F /* FiscoBcosIosSdk.framework */; };
 		9F5AC3F425A72ECA00BA49E6 /* DataTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5AC3F225A72ECA00BA49E6 /* DataTypeTest.m */; };
 		9F7B7F582563BC9100C1E65F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B7F572563BC9100C1E65F /* AppDelegate.m */; };
 		9F7B7F5B2563BC9100C1E65F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B7F5A2563BC9100C1E65F /* SceneDelegate.m */; };
@@ -45,7 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9F3878A425A87564007C4C18 /* Fiscobcosios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fiscobcosios.framework; sourceTree = "<group>"; };
+		9F5001A025B02AA10086163F /* FiscoBcosIosSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FiscoBcosIosSdk.framework; sourceTree = "<group>"; };
 		9F5AC3F225A72ECA00BA49E6 /* DataTypeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTypeTest.m; sourceTree = "<group>"; };
 		9F5AC3F325A72ECA00BA49E6 /* DataTypeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTypeTest.h; sourceTree = "<group>"; };
 		9F7B7F532563BC9100C1E65F /* call-fisco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "call-fisco.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F3878A525A87565007C4C18 /* Fiscobcosios.framework in Frameworks */,
+				9F5001A125B02AA10086163F /* FiscoBcosIosSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +124,7 @@
 		9F7B7F552563BC9100C1E65F /* call-fisco */ = {
 			isa = PBXGroup;
 			children = (
-				9F3878A425A87564007C4C18 /* Fiscobcosios.framework */,
+				9F5001A025B02AA10086163F /* FiscoBcosIosSdk.framework */,
 				9F5AC3F325A72ECA00BA49E6 /* DataTypeTest.h */,
 				9F5AC3F225A72ECA00BA49E6 /* DataTypeTest.m */,
 				9F7B7FA82563D6D000C1E65F /* key.pem */,
@@ -485,6 +485,7 @@
 					"$(PROJECT_DIR)/call-fisco",
 				);
 				INFOPLIST_FILE = "call-fisco/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -510,6 +511,7 @@
 					"$(PROJECT_DIR)/call-fisco",
 				);
 				INFOPLIST_FILE = "call-fisco/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

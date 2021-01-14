@@ -1,0 +1,8 @@
+framework module "FiscoBcosIosSdk" {
+	header "ref.h"
+    header "Mobile.objc.h"
+    header "Universe.objc.h"
+    header "FiscoBcosIosSdk.h"
+
+    export *
+}

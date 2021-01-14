@@ -3,7 +3,7 @@
 
 
 #import "DataTypeTest.h"
-#import "Fiscobcosios.framework/Headers/Fiscobcosios.h"	
+#import "FiscoBcosIosSdk.framework/Headers/FiscoBcosIosSdk.h"	
 
 @implementation DataTypeTest
 // DataTypeTestABI is the input ABI used to generate the binding from.
@@ -18,37 +18,36 @@
 }
 
 /// deploy 
-- (FiscobcosiosDeployContractResult*) deploy {
-	
+- (MobileDeployContractResult*) deploy {
 	
 	NSString *__params = @"[]";
-	return FiscobcosiosDeployContract(_abi,_bin,__params);
+	return MobileDeployContract(_abi,_bin,__params);
 }
 
 
 
 /// retrieve
-- (FiscobcosiosCallResult *) retrieve {
-	
+/// @return  uint256 type argument
+- (MobileCallResult *) retrieve {
 	
 	NSString *__params = @"[]";
-	return FiscobcosiosCall(_abi,_address,@"retrieve",__params);
+	return MobileCall(_abi,_address,@"retrieve",__params);
 }
 
 /// retrieveArray
-- (FiscobcosiosCallResult *) retrieveArray {
-	
+/// @return  bytes32[] type argument
+/// @return  int64[] type argument
+- (MobileCallResult *) retrieveArray {
 	
 	NSString *__params = @"[]";
-	return FiscobcosiosCall(_abi,_address,@"retrieveArray",__params);
+	return MobileCall(_abi,_address,@"retrieveArray",__params);
 }
 
 
 
 /// storeAddress
 /// @param adArg address type argument, please note this argument only accept hex encoded strings.
-- (FiscobcosiosTransactResult *) storeAddress  :(NSString *) adArg{
-	
+- (MobileTransactResult *) storeAddress  :(NSString *) adArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"address",
@@ -56,13 +55,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeAddress",__params);
+	return MobileSendTransaction(_abi,_address,@"storeAddress",__params);
 }
 
 /// storeBigInt
 /// @param int256Arg int256 type argument
-- (FiscobcosiosTransactResult *) storeBigInt  :(NSString *) int256Arg{
-	
+- (MobileTransactResult *) storeBigInt  :(NSString *) int256Arg{
 	NSArray * __resArr = @[
         @{
             @"type":@"int256",
@@ -70,13 +68,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeBigInt",__params);
+	return MobileSendTransaction(_abi,_address,@"storeBigInt",__params);
 }
 
 /// storeBool
 /// @param boolArg bool type argument
-- (FiscobcosiosTransactResult *) storeBool  :(BOOL) boolArg{
-	
+- (MobileTransactResult *) storeBool  :(BOOL) boolArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"bool",
@@ -84,13 +81,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeBool",__params);
+	return MobileSendTransaction(_abi,_address,@"storeBool",__params);
 }
 
 /// storeByteArray
 /// @param b32arArg bytes32[] type argument, please note this argument only accept hex encoded strings.
-- (FiscobcosiosTransactResult *) storeByteArray  :(NSArray *) b32arArg{
-	
+- (MobileTransactResult *) storeByteArray  :(NSArray *) b32arArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"bytes32[]",
@@ -98,13 +94,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeByteArray",__params);
+	return MobileSendTransaction(_abi,_address,@"storeByteArray",__params);
 }
 
 /// storeBytes
 /// @param bytesArg bytes type argument, please note this argument only accept hex encoded strings.
-- (FiscobcosiosTransactResult *) storeBytes  :(NSString *) bytesArg{
-	
+- (MobileTransactResult *) storeBytes  :(NSString *) bytesArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"bytes",
@@ -112,13 +107,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeBytes",__params);
+	return MobileSendTransaction(_abi,_address,@"storeBytes",__params);
 }
 
 /// storeEmum
 /// @param teArg uint8 type argument
-- (FiscobcosiosTransactResult *) storeEmum  :(unsigned int) teArg{
-	
+- (MobileTransactResult *) storeEmum  :(unsigned int) teArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"uint8",
@@ -126,17 +120,16 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeEmum",__params);
+	return MobileSendTransaction(_abi,_address,@"storeEmum",__params);
 }
 
 /// storeFixedBytes
 /// @param byte1Arg bytes1 type argument, please note this argument only accept hex encoded strings.
 /// @param byte5Arg bytes5 type argument, please note this argument only accept hex encoded strings.
 /// @param byte32Arg bytes32 type argument, please note this argument only accept hex encoded strings.
-- (FiscobcosiosTransactResult *) storeFixedBytes  :(NSString *) byte1Arg 
+- (MobileTransactResult *) storeFixedBytes  :(NSString *) byte1Arg 
 	byte5Arg:(NSString *) byte5Arg 
 	byte32Arg:(NSString *) byte32Arg{
-	
 	NSArray * __resArr = @[
         @{
             @"type":@"bytes1",
@@ -152,7 +145,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeFixedBytes",__params);
+	return MobileSendTransaction(_abi,_address,@"storeFixedBytes",__params);
 }
 
 /// storeInt
@@ -161,12 +154,11 @@
 /// @param int16Arg int16 type argument
 /// @param int32Arg int32 type argument
 /// @param int64Arg int64 type argument
-- (FiscobcosiosTransactResult *) storeInt  :(NSString *) intArg 
+- (MobileTransactResult *) storeInt  :(NSString *) intArg 
 	int8Arg:(int) int8Arg 
 	int16Arg:(int) int16Arg 
 	int32Arg:(int) int32Arg 
 	int64Arg:(double) int64Arg{
-	
 	NSArray * __resArr = @[
         @{
             @"type":@"int256",
@@ -190,17 +182,16 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeInt",__params);
+	return MobileSendTransaction(_abi,_address,@"storeInt",__params);
 }
 
 /// storeIntArray
 /// @param iarArg int256[] type argument
 /// @param i64arArg int64[] type argument
 /// @param i256arArg int256[] type argument
-- (FiscobcosiosTransactResult *) storeIntArray  :(NSArray *) iarArg 
+- (MobileTransactResult *) storeIntArray  :(NSArray *) iarArg 
 	i64arArg:(NSArray *) i64arArg 
 	i256arArg:(NSArray *) i256arArg{
-	
 	NSArray * __resArr = @[
         @{
             @"type":@"int256[]",
@@ -216,13 +207,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeIntArray",__params);
+	return MobileSendTransaction(_abi,_address,@"storeIntArray",__params);
 }
 
 /// storeStr
 /// @param strArg string type argument
-- (FiscobcosiosTransactResult *) storeStr  :(NSString *) strArg{
-	
+- (MobileTransactResult *) storeStr  :(NSString *) strArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"string",
@@ -230,13 +220,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeStr",__params);
+	return MobileSendTransaction(_abi,_address,@"storeStr",__params);
 }
 
 /// storeStruct
 /// @param structArg (int32,int32) type argument
-- (FiscobcosiosTransactResult *) storeStruct  :(struct Class0) structArg{
-	
+- (MobileTransactResult *) storeStruct  :(struct Class0) structArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"(int32,int32)",
@@ -244,13 +233,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeStruct",__params);
+	return MobileSendTransaction(_abi,_address,@"storeStruct",__params);
 }
 
 /// storeUBigInt
 /// @param uint256Arg uint256 type argument
-- (FiscobcosiosTransactResult *) storeUBigInt  :(NSString *) uint256Arg{
-	
+- (MobileTransactResult *) storeUBigInt  :(NSString *) uint256Arg{
 	NSArray * __resArr = @[
         @{
             @"type":@"uint256",
@@ -258,7 +246,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeUBigInt",__params);
+	return MobileSendTransaction(_abi,_address,@"storeUBigInt",__params);
 }
 
 /// storeUint
@@ -267,12 +255,11 @@
 /// @param uint16Arg uint16 type argument
 /// @param uint32Arg uint32 type argument
 /// @param uint64Arg uint64 type argument
-- (FiscobcosiosTransactResult *) storeUint  :(NSString *) uintArg 
+- (MobileTransactResult *) storeUint  :(NSString *) uintArg 
 	uint8Arg:(unsigned int) uint8Arg 
 	uint16Arg:(unsigned int) uint16Arg 
 	uint32Arg:(unsigned int) uint32Arg 
 	uint64Arg:(double) uint64Arg{
-	
 	NSArray * __resArr = @[
         @{
             @"type":@"uint256",
@@ -296,7 +283,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return FiscobcosiosSendTransaction(_abi,_address,@"storeUint",__params);
+	return MobileSendTransaction(_abi,_address,@"storeUint",__params);
 }
 
 	
