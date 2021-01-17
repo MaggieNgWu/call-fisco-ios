@@ -11,6 +11,7 @@
 #include "Universe.objc.h"
 
 
+@class MobileBcosSDK;
 @class MobileBuildSDKResult;
 @class MobileCallResult;
 @class MobileContractParams;
@@ -23,6 +24,61 @@
 @class MobileTransactResult;
 @class MobileTransaction;
 @class MobileTxReceipt;
+
+@interface MobileBcosSDK : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+/**
+ * BuildSDK
+Build sdk.
+Connect to the proxy or FISCO BCOS node.
+ */
+- (MobileBuildSDKResult* _Nullable)buildSDK:(NSString* _Nullable)configString;
+/**
+ * BuildSDKWithParam
+Connect to the proxy or FISCO BCOS node.
+Please make sure ca.crt, sdk.crt, sdk.key under path certPath.
+Please provider full keyFile path
+ */
+- (MobileBuildSDKResult* _Nullable)buildSDKWithParam:(NSString* _Nullable)certPath keyFile:(NSString* _Nullable)keyFile groupId:(long)groupId ipPort:(NSString* _Nullable)ipPort isHttp:(BOOL)isHttp chainId:(int64_t)chainId isSMCrypto:(BOOL)isSMCrypto;
+/**
+ * Call contract
+ */
+- (MobileCallResult* _Nullable)call:(NSString* _Nullable)abiContract address:(NSString* _Nullable)address method:(NSString* _Nullable)method params:(NSString* _Nullable)params;
+/**
+ * DeployContract
+Deploy contract
+ */
+- (MobileDeployContractResult* _Nullable)deployContract:(NSString* _Nullable)contractAbi contractBin:(NSString* _Nullable)contractBin params:(NSString* _Nullable)params;
+/**
+ * GetBlockNumber
+Return block number
+ */
+- (MobileRPCResult* _Nullable)getBlockNumber;
+/**
+ * RPC calls
+GetClientVersion
+ */
+- (MobileRPCResult* _Nullable)getClientVersion;
+/**
+ * GetTransactionByHash
+Get transaction by tx hash
+ */
+- (MobileRPCTransactionResult* _Nullable)getTransactionByHash:(NSString* _Nullable)txHash;
+/**
+ * GetTransactionReceipt
+Get transaction receipt by tx hash
+ */
+- (MobileRPCResult* _Nullable)getTransactionReceipt:(NSString* _Nullable)txHash;
+/**
+ * SendTransaction
+Send transaction to call function of contract
+ */
+- (MobileTransactResult* _Nullable)sendTransaction:(NSString* _Nullable)contractAbi address:(NSString* _Nullable)address method:(NSString* _Nullable)method params:(NSString* _Nullable)params;
+@end
 
 @interface MobileBuildSDKResult : NSObject <goSeqRefInterface> {
 }
@@ -172,64 +228,5 @@
 
 @property (nonatomic) NSString* _Nonnull logsBloom;
 @end
-
-/**
- * BuildSDK
-Build sdk.
-Connect to the proxy or FISCO BCOS node.
- */
-FOUNDATION_EXPORT MobileBuildSDKResult* _Nullable MobileBuildSDK(NSString* _Nullable configString);
-
-/**
- * BuildSDKWithParam
-Connect to the proxy or FISCO BCOS node.
-Please make sure ca.crt, sdk.crt, sdk.key under path certPath.
-Please provider full keyFile path
- */
-FOUNDATION_EXPORT MobileBuildSDKResult* _Nullable MobileBuildSDKWithParam(NSString* _Nullable certPath, NSString* _Nullable keyFile, long groupId, NSString* _Nullable ipPort, BOOL isHttp, int64_t chainId, BOOL isSMCrypto);
-
-/**
- * Call contract
- */
-FOUNDATION_EXPORT MobileCallResult* _Nullable MobileCall(NSString* _Nullable abiContract, NSString* _Nullable address, NSString* _Nullable method, NSString* _Nullable params);
-
-/**
- * DeployContract
-Deploy contract
- */
-FOUNDATION_EXPORT MobileDeployContractResult* _Nullable MobileDeployContract(NSString* _Nullable abiContract, NSString* _Nullable binContract, NSString* _Nullable params);
-
-/**
- * GetBlockNumber
-Return block number
- */
-FOUNDATION_EXPORT MobileRPCResult* _Nullable MobileGetBlockNumber(void);
-
-/**
- * RPC calls
-GetClientVersion
- */
-FOUNDATION_EXPORT MobileRPCResult* _Nullable MobileGetClientVersion(void);
-
-/**
- * GetTransactionByHash
-Get transaction by tx hash
- */
-FOUNDATION_EXPORT MobileRPCTransactionResult* _Nullable MobileGetTransactionByHash(NSString* _Nullable txHash);
-
-/**
- * GetTransactionReceipt
-Get transaction receipt by tx hash
- */
-FOUNDATION_EXPORT MobileRPCResult* _Nullable MobileGetTransactionReceipt(NSString* _Nullable txHash);
-
-/**
- * SendTransaction
-Send transaction to call function of contract
- */
-FOUNDATION_EXPORT MobileTransactResult* _Nullable MobileSendTransaction(NSString* _Nullable contractAbi, NSString* _Nullable address, NSString* _Nullable method, NSString* _Nullable params);
-
-// skipped function StringToInterface with unsupported parameter or return types
-
 
 #endif

@@ -12,16 +12,23 @@ int date ;
 };
 
 
+
 @interface DataTypeTest : NSObject
 
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *abi;
 @property (nonatomic, copy) NSString *bin;
 
-- (instancetype)initWithAddress:(NSString *)addr;
+typedef int(^SEND_TRANSACTION_CALLBACK_FUNC)(int);
+
+/// init
+- (instancetype)init:(MobileBcosSDK *)sdk;
+/// initWithAddress
+- (instancetype)initWithAddress:(NSString *)addr
+	sdk:(MobileBcosSDK *) sdk;
 
 /// deploy 
-- (MobileDeployContractResult*)  deploy ;
+- (MobileDeployContractResult*)  deploy ; 
 
 
 /// retrieve 
@@ -41,7 +48,7 @@ int date ;
 
 /// storeBigInt
 /// @param int256Arg int256 type argument
-- (MobileTransactResult *) storeBigInt  :(NSString *) int256Arg;
+- (MobileTransactResult *) storeBigInt  :(NSString *) int256Arg: CallBack cb;
 
 /// storeBool
 /// @param boolArg bool type argument

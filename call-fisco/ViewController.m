@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *addr;
 @property NSString * contractAddress;
+@property MobileBcosSDK* sdk1;
+@property MobileBcosSDK* sdk2;
 
 @end
 
@@ -23,14 +25,15 @@
     NSString *path = [NSBundle mainBundle].bundlePath;
     NSString *endpoint = @"localhost:8170";
     NSString *keyFile = [NSString stringWithFormat:@"%@/%@", path, @"key.pem" ];
-    MobileBuildSDKResult *result = MobileBuildSDKWithParam(path,keyFile, 1, endpoint, false,1,false );
+    _sdk1 = [[MobileBcosSDK alloc]init];
+    MobileBuildSDKResult *result = [_sdk1 buildSDKWithParam:path keyFile:keyFile groupId:1 ipPort:endpoint isHttp:false chainId:1 isSMCrypto:false];
     NSLog(@"Result:%@",result.information);
 }
 
 //RPC getClientVersion
 - (IBAction)getversion:(id)sender {
     UIAlertController *alertController;
-    MobileRPCResult* result = MobileGetClientVersion();
+    MobileRPCResult* result =[_sdk1 getClientVersion];
     if (result.errorInfo.length != 0){
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
     }else{
@@ -46,16 +49,19 @@
     NSString *path = [NSBundle mainBundle].bundlePath;
     NSString *endpoint = @"localhost:8170";
     NSString *keyFile = [NSString stringWithFormat:@"%@/%@", path, @"key.pem" ];
-    MobileBuildSDKResult *result = MobileBuildSDKWithParam(path,keyFile, 1, endpoint, false,1,false );
+    MobileBuildSDKResult *result = [_sdk1 buildSDKWithParam:path keyFile:keyFile groupId:1 ipPort:endpoint isHttp:false chainId:1 isSMCrypto:false];
     NSLog(@"Result:%@",result.information);
 }
 
 // 部署合约
 - (IBAction)deploy:(id)sender {
     UIAlertController *alertController;
-    DataTypeTest *contract = [DataTypeTest new];
+    
+    
+    DataTypeTest *contract = [[DataTypeTest alloc]init:_sdk1];
+    NSLog(@"sdfsdf");
     MobileDeployContractResult *dr = [contract deploy];
-   
+    NSLog(@"%@ , %@",dr.address,dr.errorInfo);
     if (dr.errorInfo.length != 0){
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:dr.errorInfo preferredStyle:UIAlertControllerStyleAlert];
     }else{
@@ -74,7 +80,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     double a = 10000000;
     int i = 9;
 
@@ -95,7 +101,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     double a = 10000000;
     unsigned int i = 9;
 
@@ -115,7 +121,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
     MobileTransactResult *result = [contract storeBigInt:@"111111111"];
     if (result.errorInfo.length != 0){
@@ -133,7 +139,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
     MobileTransactResult *result = [contract storeAddress:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
     if (result.errorInfo.length != 0){
@@ -152,7 +158,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
     MobileTransactResult *result = [contract storeFixedBytes:@"0x1" byte5Arg:@"0x123456"byte32Arg:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
     if (result.errorInfo.length != 0){
@@ -170,7 +176,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
     MobileTransactResult *result = [contract storeBytes:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
     if (result.errorInfo.length != 0){
@@ -188,7 +194,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     
     NSArray *arr = @[
         @"0x21342",
@@ -212,7 +218,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     
     BOOL b = YES;
 
@@ -232,7 +238,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     
     NSArray *a1 = @[
         @"1233",
@@ -265,7 +271,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     
     struct Class0 a;
     a.date = 122;
@@ -287,7 +293,7 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
     MobileCallResult *result = [contract retrieveArray];
     if (result.errorInfo.length != 0){

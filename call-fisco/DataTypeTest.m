@@ -8,20 +8,32 @@
 @implementation DataTypeTest
 // DataTypeTestABI is the input ABI used to generate the binding from.
 
+/// init
+- (instancetype) init:(MobileBcosSDK *)sdk{
+    if (self = [super init]){
+        _sdk = &sdk;
+    }
+    return self;
+}
+
 /// initWithAddress
-- (instancetype) initWithAddress:(NSString *)addr{
+- (instancetype) initWithAddress:(NSString *)addr
+                             sdk:(MobileBcosSDK *)sdk{
 	if (self = [super init]){
-		self = [self init];
+        self = [self init:sdk];
 		_address = addr;
 	}
 	return self;
 }
 
+
 /// deploy 
 - (MobileDeployContractResult*) deploy {
 	
 	NSString *__params = @"[]";
-	return MobileDeployContract(_abi,_bin,__params);
+    NSLog(@"%@ ",*_sdk);
+    
+	return [*_sdk deployContract:_abi contractBin:_bin params:__params];
 }
 
 
@@ -29,9 +41,8 @@
 /// retrieve
 /// @return  uint256 type argument
 - (MobileCallResult *) retrieve {
-	
 	NSString *__params = @"[]";
-	return MobileCall(_abi,_address,@"retrieve",__params);
+	return [*_sdk call:_abi address:_address method:@"retrieve" params:__params,callback];
 }
 
 /// retrieveArray
@@ -40,7 +51,7 @@
 - (MobileCallResult *) retrieveArray {
 	
 	NSString *__params = @"[]";
-	return MobileCall(_abi,_address,@"retrieveArray",__params);
+	return [*_sdk call:_abi address:_address method:@"retrieveArray" params:__params];
 }
 
 
@@ -55,7 +66,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeAddress",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeAddress" params:__params];
 }
 
 /// storeBigInt
@@ -68,7 +79,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeBigInt",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeBigInt" params:__params];
 }
 
 /// storeBool
@@ -81,8 +92,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeBool",__params);
+	r [*_sdk sendTransaction:_abi address:_address method:@"storeBool" params:__params]
+    callback();
 }
+
+
+
 
 /// storeByteArray
 /// @param b32arArg bytes32[] type argument, please note this argument only accept hex encoded strings.
@@ -94,7 +109,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeByteArray",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeByteArray" params:__params];
 }
 
 /// storeBytes
@@ -107,7 +122,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeBytes",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeBytes" params:__params];
 }
 
 /// storeEmum
@@ -120,7 +135,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeEmum",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeEmum" params:__params];
 }
 
 /// storeFixedBytes
@@ -145,7 +160,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeFixedBytes",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeFixedBytes" params:__params];
 }
 
 /// storeInt
@@ -182,7 +197,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeInt",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeInt" params:__params];
 }
 
 /// storeIntArray
@@ -207,7 +222,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeIntArray",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeIntArray" params:__params];
 }
 
 /// storeStr
@@ -220,7 +235,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeStr",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeStr" params:__params];
 }
 
 /// storeStruct
@@ -233,7 +248,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeStruct",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeStruct" params:__params];
 }
 
 /// storeUBigInt
@@ -246,7 +261,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeUBigInt",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeUBigInt" params:__params];
 }
 
 /// storeUint
@@ -283,7 +298,7 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-	return MobileSendTransaction(_abi,_address,@"storeUint",__params);
+	return [*_sdk sendTransaction:_abi address:_address method:@"storeUint" params:__params];
 }
 
 	
