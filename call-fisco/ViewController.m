@@ -13,7 +13,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *addr;
 @property NSString * contractAddress;
 @property MobileBcosSDK* sdk1;
-@property MobileBcosSDK* sdk2;
 
 @end
 
@@ -25,9 +24,12 @@
     NSString *path = [NSBundle mainBundle].bundlePath;
     NSString *endpoint = @"localhost:8170";
     NSString *keyFile = [NSString stringWithFormat:@"%@/%@", path, @"key.pem" ];
-    _sdk1 = [[MobileBcosSDK alloc]init];
+    self.sdk1 = [[MobileBcosSDK alloc]init];
     MobileBuildSDKResult *result = [_sdk1 buildSDKWithParam:path keyFile:keyFile groupId:1 ipPort:endpoint isHttp:false chainId:1 isSMCrypto:false];
     NSLog(@"Result:%@",result.information);
+    DataTypeTest *contract = [[DataTypeTest alloc]init:self.sdk1];
+    MobileDeployContractResult *dr2 = [self.sdk1 deployContract:contract.abi contractBin:contract.bin params:@"[]"];
+    NSLog(@"dr2 error : %@", contract.abi);
 }
 
 //RPC getClientVersion
@@ -49,7 +51,7 @@
     NSString *path = [NSBundle mainBundle].bundlePath;
     NSString *endpoint = @"localhost:8170";
     NSString *keyFile = [NSString stringWithFormat:@"%@/%@", path, @"key.pem" ];
-    MobileBuildSDKResult *result = [_sdk1 buildSDKWithParam:path keyFile:keyFile groupId:1 ipPort:endpoint isHttp:false chainId:1 isSMCrypto:false];
+    MobileBuildSDKResult *result = [self.sdk1 buildSDKWithParam:path keyFile:keyFile groupId:1 ipPort:endpoint isHttp:false chainId:1 isSMCrypto:false];
     NSLog(@"Result:%@",result.information);
 }
 
@@ -58,10 +60,15 @@
     UIAlertController *alertController;
     
     
-    DataTypeTest *contract = [[DataTypeTest alloc]init:_sdk1];
-    NSLog(@"sdfsdf");
-    MobileDeployContractResult *dr = [contract deploy];
-    NSLog(@"%@ , %@",dr.address,dr.errorInfo);
+    DataTypeTest *contract = [[DataTypeTest alloc]init:self.sdk1];
+    MobileDeployContractResult *dr = [contract deploy]; // 调用了deployContract方法
+    
+    MobileDeployContractResult *dr2 = [self.sdk1 deployContract:contract.abi contractBin:contract.bin params:@"[]"];
+    
+    NSLog(@"dr error : %@", dr.errorInfo);
+    NSLog(@"dr2 error : %@", dr2.errorInfo);
+    
+    
     if (dr.errorInfo.length != 0){
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:dr.errorInfo preferredStyle:UIAlertControllerStyleAlert];
     }else{

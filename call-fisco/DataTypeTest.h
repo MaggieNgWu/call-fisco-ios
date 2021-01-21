@@ -8,7 +8,6 @@ NS_ASSUME_NONNULL_BEGIN
 struct Class0{
 int value ;
 int date ;
-
 };
 
 
@@ -18,8 +17,7 @@ int date ;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *abi;
 @property (nonatomic, copy) NSString *bin;
-
-typedef int(^SEND_TRANSACTION_CALLBACK_FUNC)(int);
+@property (nonatomic, strong) MobileBcosSDK *sdk;
 
 /// init
 - (instancetype)init:(MobileBcosSDK *)sdk;
@@ -48,7 +46,7 @@ typedef int(^SEND_TRANSACTION_CALLBACK_FUNC)(int);
 
 /// storeBigInt
 /// @param int256Arg int256 type argument
-- (MobileTransactResult *) storeBigInt  :(NSString *) int256Arg: CallBack cb;
+- (MobileTransactResult *) storeBigInt  :(NSString *) int256Arg;
 
 /// storeBool
 /// @param boolArg bool type argument

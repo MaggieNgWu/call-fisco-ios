@@ -24,6 +24,12 @@
 @class MobileTransactResult;
 @class MobileTransaction;
 @class MobileTxReceipt;
+@protocol MobilePostCallback;
+@class MobilePostCallback;
+
+@protocol MobilePostCallback <NSObject>
+- (NSString* _Nonnull)sendResult:(NSString* _Nullable)rpcRequest;
+@end
 
 @interface MobileBcosSDK : NSObject <goSeqRefInterface> {
 }
@@ -31,6 +37,7 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
+@property (nonatomic) id<MobilePostCallback> _Nullable callback;
 /**
  * BuildSDK
 Build sdk.
@@ -227,6 +234,16 @@ Send transaction to call function of contract
 // skipped field TxReceipt.Logs with unsupported type: []github.com/FISCO-BCOS/go-sdk/mobile/ios.EventLog
 
 @property (nonatomic) NSString* _Nonnull logsBloom;
+@end
+
+@class MobilePostCallback;
+
+@interface MobilePostCallback : NSObject <goSeqRefInterface, MobilePostCallback> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (NSString* _Nonnull)sendResult:(NSString* _Nullable)rpcRequest;
 @end
 
 #endif
