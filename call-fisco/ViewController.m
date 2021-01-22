@@ -7,39 +7,37 @@
 
 #import "ViewController.h"
 #import "DataTypeTest.h"
+#import "MyPostCalBack.h"
 
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *addr;
 @property NSString * contractAddress;
-@property MobileBcosSDK* sdk1;
+@property (nonatomic,strong)MobileBcosSDK* sdk1;
 
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
     NSString *path = [NSBundle mainBundle].bundlePath;
-    NSString *endpoint = @"localhost:8170";
     NSString *keyFile = [NSString stringWithFormat:@"%@/%@", path, @"key.pem" ];
+    
+    [super viewDidLoad];
     self.sdk1 = [[MobileBcosSDK alloc]init];
-    MobileBuildSDKResult *result = [_sdk1 buildSDKWithParam:path keyFile:keyFile groupId:1 ipPort:endpoint isHttp:false chainId:1 isSMCrypto:false];
-    NSLog(@"Result:%@",result.information);
-    DataTypeTest *contract = [[DataTypeTest alloc]init:self.sdk1];
-    MobileDeployContractResult *dr2 = [self.sdk1 deployContract:contract.abi contractBin:contract.bin params:@"[]"];
-    NSLog(@"dr2 error : %@", contract.abi);
+    MobileBuildSDKResult* result = [self.sdk1 buildSDKWithParam:keyFile groupId:1 chainId:1 isSMCrypto:false callback:[[MyPostCalBack alloc]init]];
+    NSLog(@"is success: %s",result.isSuccess? "true" : "false");
 }
 
 //RPC getClientVersion
 - (IBAction)getversion:(id)sender {
     UIAlertController *alertController;
-    MobileRPCResult* result =[_sdk1 getClientVersion];
-    if (result.errorInfo.length != 0){
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileRPCResult* result =[self.sdk1 getClientVersion];
+    long zero = 0;
+    if (result.code != zero){
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.queryResult preferredStyle:UIAlertControllerStyleAlert];
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.result preferredStyle:UIAlertControllerStyleAlert];
     }
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];
@@ -48,33 +46,22 @@
 
 //RPC getClientVersion
 - (IBAction)reconnect:(id)sender {
-    NSString *path = [NSBundle mainBundle].bundlePath;
-    NSString *endpoint = @"localhost:8170";
-    NSString *keyFile = [NSString stringWithFormat:@"%@/%@", path, @"key.pem" ];
-    MobileBuildSDKResult *result = [self.sdk1 buildSDKWithParam:path keyFile:keyFile groupId:1 ipPort:endpoint isHttp:false chainId:1 isSMCrypto:false];
-    NSLog(@"Result:%@",result.information);
+    
 }
 
 // 部署合约
 - (IBAction)deploy:(id)sender {
     UIAlertController *alertController;
-    
-    
     DataTypeTest *contract = [[DataTypeTest alloc]init:self.sdk1];
-    MobileDeployContractResult *dr = [contract deploy]; // 调用了deployContract方法
-    
-    MobileDeployContractResult *dr2 = [self.sdk1 deployContract:contract.abi contractBin:contract.bin params:@"[]"];
-    
-    NSLog(@"dr error : %@", dr.errorInfo);
-    NSLog(@"dr2 error : %@", dr2.errorInfo);
-    
-    
-    if (dr.errorInfo.length != 0){
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:dr.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileReceiptResult *dr = [contract deploy];
+    long zero = 0;
+    if (dr.code != zero){
+        NSLog(@"send tx error : %@", dr.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:dr.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
-        self.addr.text = dr.address;
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:dr.address preferredStyle:UIAlertControllerStyleAlert];
-        _contractAddress = dr.address;
+        NSLog(@"send tx success : %@", dr.receipt.contractAddress);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:dr.receipt.contractAddress preferredStyle:UIAlertControllerStyleAlert];
+        self.contractAddress = dr.receipt.contractAddress;
     }
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];
@@ -90,11 +77,12 @@
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     double a = 10000000;
     int i = 9;
-
-    MobileTransactResult *result = [contract storeInt:@"111" int8Arg:i int16Arg:i int32Arg:i int64Arg:a];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    long zero = 0;
+    MobileReceiptResult *result = [contract storeInt:@"111" int8Arg:i int16Arg:i int32Arg:i int64Arg:a];
+    
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -111,11 +99,12 @@
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     double a = 10000000;
     unsigned int i = 9;
+    long zero = 0;
 
-    MobileTransactResult *result = [contract storeUint:@"111" uint8Arg:i uint16Arg:i uint32Arg:i uint64Arg:a];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileReceiptResult *result = [contract storeUint:@"111" uint8Arg:i uint16Arg:i uint32Arg:i uint64Arg:a];
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -129,11 +118,12 @@
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
-
-    MobileTransactResult *result = [contract storeBigInt:@"111111111"];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    
+    MobileReceiptResult *result = [contract storeBigInt:@"111111111"];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -148,10 +138,11 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
-    MobileTransactResult *result = [contract storeAddress:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    long zero = 0;
+    MobileReceiptResult *result = [contract storeAddress:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -167,10 +158,11 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
-    MobileTransactResult *result = [contract storeFixedBytes:@"0x1" byte5Arg:@"0x123456"byte32Arg:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileReceiptResult *result = [contract storeFixedBytes:@"0x1" byte5Arg:@"0x123456"byte32Arg:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -185,10 +177,11 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
-    MobileTransactResult *result = [contract storeBytes:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileReceiptResult *result = [contract storeBytes:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -202,16 +195,17 @@
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
-    
+
     NSArray *arr = @[
         @"0x21342",
         @"0x23898"
     ];
 
-    MobileTransactResult *result = [contract storeByteArray:arr];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileReceiptResult *result = [contract storeByteArray:arr];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -226,13 +220,14 @@
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
-    
+
     BOOL b = YES;
 
-    MobileTransactResult *result = [contract storeBool:b];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileReceiptResult *result = [contract storeBool:b];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -246,12 +241,12 @@
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
-    
+
     NSArray *a1 = @[
         @"1233",
         @"4231"
     ];
-    
+
     double a = 10000;
     NSArray *a2 = @[
         @(a),
@@ -262,10 +257,11 @@
         @"1233",
         @"4231"
     ];
-    MobileTransactResult *result = [contract storeIntArray:a1 i64arArg:a2 i256arArg:a3];
-    if (result.errorInfo.length != 0){
-        NSLog(@"call retrival : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    MobileReceiptResult *result = [contract storeIntArray:a1 i64arArg:a2 i256arArg:a3];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"call retrival : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send retrival : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -279,15 +275,16 @@
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
-    
-    struct Class0 a;
-    a.date = 122;
-    a.value =333;
 
-    MobileTransactResult *result = [contract storeStruct:a];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    DataTypeTest_Class0 *a = [[DataTypeTest_Class0 alloc]init];
+    a.date = 222;
+    a.value = 333;
+
+    MobileReceiptResult *result = [contract storeStruct:a];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
@@ -303,9 +300,10 @@
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
     MobileCallResult *result = [contract retrieveArray];
-    if (result.errorInfo.length != 0){
-        NSLog(@"send tx error : %@", result.errorInfo);
-        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.errorInfo preferredStyle:UIAlertControllerStyleAlert];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
     }else{
         NSLog(@"send tx success : %@", result.result);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.result preferredStyle:UIAlertControllerStyleAlert];

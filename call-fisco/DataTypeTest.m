@@ -1,22 +1,26 @@
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
-
 #import "DataTypeTest.h"
-#import "FiscoBcosIosSdk.framework/Headers/FiscoBcosIosSdk.h"	
+#import <FiscoBcosIosSdk/FiscoBcosIosSdk.h>
+
+
+
+// Class0 is an auto generated low-level Go binding around an user-defined struct.
+@implementation DataTypeTest_Class0
+@end
+
 
 @implementation DataTypeTest
-// DataTypeTestABI is the input ABI used to generate the binding from.
 
 /// init
 - (instancetype) init:(MobileBcosSDK *)sdk{
     if (self = [super init]){
-        self = [self init];
+		self = [self init];
         self.sdk = sdk;
     }
     return self;
 }
-
 /// initWithAddress
 - (instancetype) initWithAddress:(NSString *)addr
                              sdk:(MobileBcosSDK *)sdk{
@@ -29,10 +33,9 @@
 
 
 /// deploy 
-- (MobileDeployContractResult*) deploy {
+- (MobileReceiptResult*) deploy {
 	
 	NSString *__params = @"[]";
-    
 	return [self.sdk deployContract:self.abi contractBin:_bin params:__params];
 }
 
@@ -41,8 +44,9 @@
 /// retrieve
 /// @return  uint256 type argument
 - (MobileCallResult *) retrieve {
+	
 	NSString *__params = @"[]";
-	return [self.sdk call:self.abi address:self.address method:@"retrieve" params:__params];
+	return [self.sdk call:self.abi address:self.address method:@"retrieve" params:__params outputNum:1];
 }
 
 /// retrieveArray
@@ -51,14 +55,14 @@
 - (MobileCallResult *) retrieveArray {
 	
 	NSString *__params = @"[]";
-	return [self.sdk call:self.abi address:self.address method:@"retrieveArray" params:__params];
+	return [self.sdk call:self.abi address:self.address method:@"retrieveArray" params:__params outputNum:2];
 }
 
 
 
 /// storeAddress
 /// @param adArg address type argument, please note this argument only accept hex encoded strings.
-- (MobileTransactResult *) storeAddress  :(NSString *) adArg{
+- (MobileReceiptResult *) storeAddress  :(NSString *) adArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"address",
@@ -71,7 +75,7 @@
 
 /// storeBigInt
 /// @param int256Arg int256 type argument
-- (MobileTransactResult *) storeBigInt  :(NSString *) int256Arg{
+- (MobileReceiptResult *) storeBigInt  :(NSString *) int256Arg{
 	NSArray * __resArr = @[
         @{
             @"type":@"int256",
@@ -84,7 +88,7 @@
 
 /// storeBool
 /// @param boolArg bool type argument
-- (MobileTransactResult *) storeBool  :(BOOL) boolArg{
+- (MobileReceiptResult *) storeBool  :(BOOL) boolArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"bool",
@@ -92,15 +96,12 @@
         }
     ];
 	NSString *__params = [self __stringFromArr:__resArr];
-    return [self.sdk sendTransaction:self.abi address:self.address method:@"storeBool" params:__params];
+	return [self.sdk sendTransaction:self.abi address:self.address method:@"storeBool" params:__params];
 }
-
-
-
 
 /// storeByteArray
 /// @param b32arArg bytes32[] type argument, please note this argument only accept hex encoded strings.
-- (MobileTransactResult *) storeByteArray  :(NSArray *) b32arArg{
+- (MobileReceiptResult *) storeByteArray  :(NSArray *) b32arArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"bytes32[]",
@@ -113,7 +114,7 @@
 
 /// storeBytes
 /// @param bytesArg bytes type argument, please note this argument only accept hex encoded strings.
-- (MobileTransactResult *) storeBytes  :(NSString *) bytesArg{
+- (MobileReceiptResult *) storeBytes  :(NSString *) bytesArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"bytes",
@@ -126,7 +127,7 @@
 
 /// storeEmum
 /// @param teArg uint8 type argument
-- (MobileTransactResult *) storeEmum  :(unsigned int) teArg{
+- (MobileReceiptResult *) storeEmum  :(unsigned int) teArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"uint8",
@@ -141,7 +142,7 @@
 /// @param byte1Arg bytes1 type argument, please note this argument only accept hex encoded strings.
 /// @param byte5Arg bytes5 type argument, please note this argument only accept hex encoded strings.
 /// @param byte32Arg bytes32 type argument, please note this argument only accept hex encoded strings.
-- (MobileTransactResult *) storeFixedBytes  :(NSString *) byte1Arg 
+- (MobileReceiptResult *) storeFixedBytes  :(NSString *) byte1Arg 
 	byte5Arg:(NSString *) byte5Arg 
 	byte32Arg:(NSString *) byte32Arg{
 	NSArray * __resArr = @[
@@ -168,7 +169,7 @@
 /// @param int16Arg int16 type argument
 /// @param int32Arg int32 type argument
 /// @param int64Arg int64 type argument
-- (MobileTransactResult *) storeInt  :(NSString *) intArg 
+- (MobileReceiptResult *) storeInt  :(NSString *) intArg 
 	int8Arg:(int) int8Arg 
 	int16Arg:(int) int16Arg 
 	int32Arg:(int) int32Arg 
@@ -203,7 +204,7 @@
 /// @param iarArg int256[] type argument
 /// @param i64arArg int64[] type argument
 /// @param i256arArg int256[] type argument
-- (MobileTransactResult *) storeIntArray  :(NSArray *) iarArg 
+- (MobileReceiptResult *) storeIntArray  :(NSArray *) iarArg 
 	i64arArg:(NSArray *) i64arArg 
 	i256arArg:(NSArray *) i256arArg{
 	NSArray * __resArr = @[
@@ -226,7 +227,7 @@
 
 /// storeStr
 /// @param strArg string type argument
-- (MobileTransactResult *) storeStr  :(NSString *) strArg{
+- (MobileReceiptResult *) storeStr  :(NSString *) strArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"string",
@@ -239,7 +240,7 @@
 
 /// storeStruct
 /// @param structArg (int32,int32) type argument
-- (MobileTransactResult *) storeStruct  :(struct Class0) structArg{
+- (MobileReceiptResult *) storeStruct  :(DataTypeTest_Class0 *) structArg{
 	NSArray * __resArr = @[
         @{
             @"type":@"(int32,int32)",
@@ -252,7 +253,7 @@
 
 /// storeUBigInt
 /// @param uint256Arg uint256 type argument
-- (MobileTransactResult *) storeUBigInt  :(NSString *) uint256Arg{
+- (MobileReceiptResult *) storeUBigInt  :(NSString *) uint256Arg{
 	NSArray * __resArr = @[
         @{
             @"type":@"uint256",
@@ -269,7 +270,7 @@
 /// @param uint16Arg uint16 type argument
 /// @param uint32Arg uint32 type argument
 /// @param uint64Arg uint64 type argument
-- (MobileTransactResult *) storeUint  :(NSString *) uintArg 
+- (MobileReceiptResult *) storeUint  :(NSString *) uintArg 
 	uint8Arg:(unsigned int) uint8Arg 
 	uint16Arg:(unsigned int) uint16Arg 
 	uint32Arg:(unsigned int) uint32Arg 
