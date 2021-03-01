@@ -11,19 +11,81 @@
 #include "Universe.objc.h"
 
 
+@class MobileBcosSDK;
 @class MobileBuildSDKResult;
 @class MobileCallResult;
 @class MobileContractParams;
-@class MobileDeployContractResult;
-@class MobileEventLog;
+@class MobileContractProxy;
 @class MobileFullTransaction;
+@class MobileNetworkResponse;
 @class MobileRPCResult;
-@class MobileRPCTransactionResult;
-@class MobileSendTransactionReceipt;
-@class MobileTransactResult;
-@class MobileTransaction;
+@class MobileReceiptResult;
+@class MobileTransactionResult;
 @class MobileTxReceipt;
+@protocol MobilePostCallback;
+@class MobilePostCallback;
 
+@protocol MobilePostCallback <NSObject>
+- (NSString* _Nonnull)sendRequest:(NSString* _Nullable)rpcRequest;
+@end
+
+@interface MobileBcosSDK : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) id<MobilePostCallback> _Nullable callback;
+/**
+ * BuildSDKWithParam
+Connect to the proxy or FISCO BCOS node.
+Please make sure ca.crt, sdk.crt, sdk.key under path certPath.
+Please provider full keyFile path
+ */
+- (MobileBuildSDKResult* _Nullable)buildSDKWithParam:(NSString* _Nullable)keyFile groupId:(long)groupId chainId:(int64_t)chainId isSMCrypto:(BOOL)isSMCrypto callback:(id<MobilePostCallback> _Nullable)callback;
+/**
+ * Call is a function to call a smart contract function without sending transaction
+return CallResult
+ */
+- (MobileCallResult* _Nullable)call:(NSString* _Nullable)abiContract address:(NSString* _Nullable)address method:(NSString* _Nullable)method params:(NSString* _Nullable)params outputNum:(long)outputNum;
+/**
+ * DeployContract is a function to deploy a FISCO BCOS smart contract
+Return receipt
+ */
+- (MobileReceiptResult* _Nullable)deployContract:(NSString* _Nullable)contractAbi contractBin:(NSString* _Nullable)contractBin params:(NSString* _Nullable)params;
+/**
+ * GetBlockNumber is to query the blockchain and get the latest block number.
+Return the latest block number
+ */
+- (MobileRPCResult* _Nullable)getBlockNumber;
+// skipped method BcosSDK.GetCallOpts with unsupported parameter or return types
+
+/**
+ * RPC calls
+GetClientVersion is to query the client version of connected nodes
+ */
+- (MobileRPCResult* _Nullable)getClientVersion;
+// skipped method BcosSDK.GetTransactOpts with unsupported parameter or return types
+
+/**
+ * GetTransactionByHash is to query the blockchain and get the transaction of a transaction hash.
+Get transaction by tx hash
+ */
+- (MobileTransactionResult* _Nullable)getTransactionByHash:(NSString* _Nullable)txHash;
+/**
+ * GetTransactionReceipt is to query the blockchain and get the receipt of a transaction.
+ */
+- (MobileReceiptResult* _Nullable)getTransactionReceipt:(NSString* _Nullable)txHash;
+/**
+ * SendTransaction is a function to send an transaction to call smart contract function.
+return receipt
+ */
+- (MobileReceiptResult* _Nullable)sendTransaction:(NSString* _Nullable)contractAbi address:(NSString* _Nullable)address method:(NSString* _Nullable)method params:(NSString* _Nullable)params;
+@end
+
+/**
+ * Build sdk result
+ */
 @interface MobileBuildSDKResult : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -34,16 +96,23 @@
 @property (nonatomic) NSString* _Nonnull information;
 @end
 
+/**
+ * CallResult return by call function
+ */
 @interface MobileCallResult : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
+@property (nonatomic) long code;
+@property (nonatomic) NSString* _Nonnull message;
 @property (nonatomic) NSString* _Nonnull result;
-@property (nonatomic) NSString* _Nonnull errorInfo;
 @end
 
+/**
+ * Parameters
+ */
 @interface MobileContractParams : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
@@ -55,26 +124,41 @@
 
 @end
 
-@interface MobileDeployContractResult : NSObject <goSeqRefInterface> {
+@interface MobileContractProxy : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull errorInfo;
-@property (nonatomic) NSString* _Nonnull address;
-@property (nonatomic) MobileTransaction* _Nullable transaction;
-@end
+// skipped method ContractProxy.AsyncSendTransaction with unsupported parameter or return types
 
-@interface MobileEventLog : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
+// skipped method ContractProxy.Call with unsupported parameter or return types
 
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull address;
-@property (nonatomic) NSString* _Nonnull data;
-// skipped field EventLog.Topics with unsupported type: []string
+// skipped method ContractProxy.CallContext with unsupported parameter or return types
+
+// skipped method ContractProxy.CallContract with unsupported parameter or return types
+
+// skipped method ContractProxy.CodeAt with unsupported parameter or return types
+
+// skipped method ContractProxy.FilterLogs with unsupported parameter or return types
+
+// skipped method ContractProxy.GetBlockLimit with unsupported parameter or return types
+
+// skipped method ContractProxy.GetChainID with unsupported parameter or return types
+
+// skipped method ContractProxy.GetContractAddress with unsupported parameter or return types
+
+// skipped method ContractProxy.GetGroupID with unsupported parameter or return types
+
+// skipped method ContractProxy.PendingCodeAt with unsupported parameter or return types
+
+/**
+ * SMCrypto returns true if use sm crypto
+ */
+- (BOOL)smCrypto;
+// skipped method ContractProxy.SendTransaction with unsupported parameter or return types
+
+// skipped method ContractProxy.SubscribeFilterLogs with unsupported parameter or return types
 
 @end
 
@@ -97,57 +181,61 @@
 @property (nonatomic) NSString* _Nonnull value;
 @end
 
+/**
+ * NetworkResponse data type return from the post callback
+ */
+@interface MobileNetworkResponse : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) long code;
+@property (nonatomic) NSString* _Nonnull message;
+// skipped field NetworkResponse.Result with unsupported type: encoding/json.RawMessage
+
+@end
+
+/**
+ * RPCResult return by rpc request
+ */
 @interface MobileRPCResult : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull queryResult;
-@property (nonatomic) NSString* _Nonnull errorInfo;
+@property (nonatomic) long code;
+@property (nonatomic) NSString* _Nonnull message;
+@property (nonatomic) NSString* _Nonnull result;
 @end
 
-@interface MobileRPCTransactionResult : NSObject <goSeqRefInterface> {
+/**
+ * ReceiptResult return by deploy and sendTransaction function.
+ */
+@interface MobileReceiptResult : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-// skipped field RPCTransactionResult.Transaction with unsupported type: github.com/FISCO-BCOS/go-sdk/mobile/ios.FullTransaction
-
-@property (nonatomic) NSString* _Nonnull errorInfo;
-@end
-
-@interface MobileSendTransactionReceipt : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull receipt;
-@property (nonatomic) NSString* _Nonnull errorInfo;
-@end
-
-@interface MobileTransactResult : NSObject <goSeqRefInterface> {
-}
-@property(strong, readonly) _Nonnull id _ref;
-
-- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
-- (nonnull instancetype)init;
-@property (nonatomic) MobileTransaction* _Nullable transaction;
+@property (nonatomic) long code;
+@property (nonatomic) NSString* _Nonnull message;
 @property (nonatomic) MobileTxReceipt* _Nullable receipt;
-@property (nonatomic) NSString* _Nonnull errorInfo;
 @end
 
-@interface MobileTransaction : NSObject <goSeqRefInterface> {
+/**
+ * TransactionResult result with transaction
+ */
+@interface MobileTransactionResult : NSObject <goSeqRefInterface> {
 }
 @property(strong, readonly) _Nonnull id _ref;
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-@property (nonatomic) NSString* _Nonnull hash;
-@property (nonatomic) double size;
-@property (nonatomic) NSString* _Nonnull data;
+@property (nonatomic) long code;
+@property (nonatomic) NSString* _Nonnull message;
+@property (nonatomic) MobileFullTransaction* _Nullable transaction;
 @end
 
 @interface MobileTxReceipt : NSObject <goSeqRefInterface> {
@@ -168,68 +256,33 @@
 @property (nonatomic) NSString* _Nonnull to;
 @property (nonatomic) NSString* _Nonnull input;
 @property (nonatomic) NSString* _Nonnull output;
-// skipped field TxReceipt.Logs with unsupported type: []github.com/FISCO-BCOS/go-sdk/mobile/ios.EventLog
-
+@property (nonatomic) NSString* _Nonnull logs;
 @property (nonatomic) NSString* _Nonnull logsBloom;
 @end
 
-/**
- * BuildSDK
-Build sdk.
-Connect to the proxy or FISCO BCOS node.
- */
-FOUNDATION_EXPORT MobileBuildSDKResult* _Nullable MobileBuildSDK(NSString* _Nullable configString);
+@interface Mobile : NSObject
++ (NSError* _Nullable) errClientQuit;
++ (void) setErrClientQuit:(NSError* _Nullable)v;
+
++ (NSError* _Nullable) errNoResult;
++ (void) setErrNoResult:(NSError* _Nullable)v;
+
++ (NSError* _Nullable) errSubscriptionQueueOverflow;
++ (void) setErrSubscriptionQueueOverflow:(NSError* _Nullable)v;
+
+@end
+
+@class MobilePostCallback;
 
 /**
- * BuildSDKWithParam
-Connect to the proxy or FISCO BCOS node.
-Please make sure ca.crt, sdk.crt, sdk.key under path certPath.
-Please provider full keyFile path
+ * PostCallback delegate callback function
  */
-FOUNDATION_EXPORT MobileBuildSDKResult* _Nullable MobileBuildSDKWithParam(NSString* _Nullable certPath, NSString* _Nullable keyFile, long groupId, NSString* _Nullable ipPort, BOOL isHttp, int64_t chainId, BOOL isSMCrypto);
+@interface MobilePostCallback : NSObject <goSeqRefInterface, MobilePostCallback> {
+}
+@property(strong, readonly) _Nonnull id _ref;
 
-/**
- * Call contract
- */
-FOUNDATION_EXPORT MobileCallResult* _Nullable MobileCall(NSString* _Nullable abiContract, NSString* _Nullable address, NSString* _Nullable method, NSString* _Nullable params);
-
-/**
- * DeployContract
-Deploy contract
- */
-FOUNDATION_EXPORT MobileDeployContractResult* _Nullable MobileDeployContract(NSString* _Nullable abiContract, NSString* _Nullable binContract, NSString* _Nullable params);
-
-/**
- * GetBlockNumber
-Return block number
- */
-FOUNDATION_EXPORT MobileRPCResult* _Nullable MobileGetBlockNumber(void);
-
-/**
- * RPC calls
-GetClientVersion
- */
-FOUNDATION_EXPORT MobileRPCResult* _Nullable MobileGetClientVersion(void);
-
-/**
- * GetTransactionByHash
-Get transaction by tx hash
- */
-FOUNDATION_EXPORT MobileRPCTransactionResult* _Nullable MobileGetTransactionByHash(NSString* _Nullable txHash);
-
-/**
- * GetTransactionReceipt
-Get transaction receipt by tx hash
- */
-FOUNDATION_EXPORT MobileRPCResult* _Nullable MobileGetTransactionReceipt(NSString* _Nullable txHash);
-
-/**
- * SendTransaction
-Send transaction to call function of contract
- */
-FOUNDATION_EXPORT MobileTransactResult* _Nullable MobileSendTransaction(NSString* _Nullable contractAbi, NSString* _Nullable address, NSString* _Nullable method, NSString* _Nullable params);
-
-// skipped function StringToInterface with unsupported parameter or return types
-
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (NSString* _Nonnull)sendRequest:(NSString* _Nullable)rpcRequest;
+@end
 
 #endif

@@ -54,14 +54,6 @@
                                     <action selector="SendUint:" destination="BYZ-38-t0r" eventType="touchDown" id="3Qh-tu-vW6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ldf-Ow-Typ">
-                                <rect key="frame" x="20" y="430" width="90" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Call Function"/>
-                                <connections>
-                                    <action selector="call:" destination="BYZ-38-t0r" eventType="touchDown" id="fj3-iO-Tlg"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLH-FZ-Fmx">
                                 <rect key="frame" x="20" y="212" width="125" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -100,14 +92,6 @@
                                 <state key="normal" title="Send Byte Array"/>
                                 <connections>
                                     <action selector="SendByteArray:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bgb-0F-8g2"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jPX-6W-0iG">
-                                <rect key="frame" x="192" y="44" width="74" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Reconnect"/>
-                                <connections>
-                                    <action selector="reconnect:" destination="BYZ-38-t0r" eventType="touchDown" id="Cpb-L9-GWB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuG-zB-Gfz">

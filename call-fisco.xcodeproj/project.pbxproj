@@ -25,6 +25,7 @@
 		9F7B7F9F2563BF9500C1E65F /* node.crt in Resources */ = {isa = PBXBuildFile; fileRef = 9F7B7F992563BF9500C1E65F /* node.crt */; };
 		9F7B7FA92563D6D000C1E65F /* key.pem in Resources */ = {isa = PBXBuildFile; fileRef = 9F7B7FA82563D6D000C1E65F /* key.pem */; };
 		9F95AF01258B61E200348D9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F95AF00258B61E200348D9D /* ViewController.m */; };
+		9F9DBE0F25B9B3E7003A8C5B /* MyPostCalBack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9DBE0E25B9B3E7003A8C5B /* MyPostCalBack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		9F7B7F992563BF9500C1E65F /* node.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = node.crt; sourceTree = "<group>"; };
 		9F7B7FA82563D6D000C1E65F /* key.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = key.pem; sourceTree = "<group>"; };
 		9F95AF00258B61E200348D9D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9F9DBE0D25B9B3E7003A8C5B /* MyPostCalBack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPostCalBack.h; sourceTree = "<group>"; };
+		9F9DBE0E25B9B3E7003A8C5B /* MyPostCalBack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPostCalBack.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,8 @@
 				9F7B7F5A2563BC9100C1E65F /* SceneDelegate.m */,
 				9F7B7F5C2563BC9100C1E65F /* ViewController.h */,
 				9F95AF00258B61E200348D9D /* ViewController.m */,
+				9F9DBE0D25B9B3E7003A8C5B /* MyPostCalBack.h */,
+				9F9DBE0E25B9B3E7003A8C5B /* MyPostCalBack.m */,
 				9F7B7F562563BC9100C1E65F /* AppDelegate.h */,
 				9F7B7F572563BC9100C1E65F /* AppDelegate.m */,
 				9F7B7F592563BC9100C1E65F /* SceneDelegate.h */,
@@ -306,6 +311,7 @@
 				9F5AC3F425A72ECA00BA49E6 /* DataTypeTest.m in Sources */,
 				9F95AF01258B61E200348D9D /* ViewController.m in Sources */,
 				9F7B7F582563BC9100C1E65F /* AppDelegate.m in Sources */,
+				9F9DBE0F25B9B3E7003A8C5B /* MyPostCalBack.m in Sources */,
 				9F7B7F692563BC9100C1E65F /* main.m in Sources */,
 				9F7B7F5B2563BC9100C1E65F /* SceneDelegate.m in Sources */,
 			);
