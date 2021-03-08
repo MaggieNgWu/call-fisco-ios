@@ -11,7 +11,7 @@
 
 - (NSString* _Nonnull)sendRequest:(NSString* _Nullable)rpcRequest{
     
-    NSURL *nsurl = [NSURL URLWithString:@"http://116.63.184.110:8171/Bcos-node-proxy/rpc/v1"];
+    NSURL *nsurl = [NSURL URLWithString:@"http://localhost:8170/Bcos-node-proxy/rpc/v1"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:nsurl];
     //如果想要设置网络超时的时间的话，可以使用下面的方法：
     //NSMutableURLRequest *mutableRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
