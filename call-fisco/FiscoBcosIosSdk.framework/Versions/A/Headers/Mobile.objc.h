@@ -35,14 +35,13 @@
 
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
-@property (nonatomic) id<MobilePostCallback> _Nullable callback;
 /**
  * BuildSDKWithParam
 Connect to the proxy or FISCO BCOS node.
 Please make sure ca.crt, sdk.crt, sdk.key under path certPath.
 Please provider full keyFile path
  */
-- (MobileBuildSDKResult* _Nullable)buildSDKWithParam:(NSString* _Nullable)keyFile groupID:(long)groupID chainID:(int64_t)chainID isSMCrypto:(BOOL)isSMCrypto callback:(id<MobilePostCallback> _Nullable)callback;
+- (MobileBuildSDKResult* _Nullable)buildSDKWithParam:(NSString* _Nullable)keyFile callback:(id<MobilePostCallback> _Nullable)callback groupID:(long)groupID chainID:(int64_t)chainID isSMCrypto:(BOOL)isSMCrypto;
 /**
  * Call is a function to call a smart contract function without sending transaction
 return CallResult

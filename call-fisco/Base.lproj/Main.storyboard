@@ -103,7 +103,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Juf-Sf-jQI">
-                                <rect key="frame" x="20" y="405" width="91" height="30"/>
+                                <rect key="frame" x="20" y="435" width="91" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Call GetArray"/>
                                 <connections>
@@ -124,6 +124,14 @@
                                 <state key="normal" title="Send Struct"/>
                                 <connections>
                                     <action selector="sendStruct:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ebr-8K-YtI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5Y-Nl-mJs">
+                                <rect key="frame" x="20" y="405" width="132" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Send int40 uint220"/>
+                                <connections>
+                                    <action selector="SendStoreInt40:" destination="BYZ-38-t0r" eventType="touchDown" id="Amf-8q-aNu"/>
                                 </connections>
                             </button>
                         </subviews>

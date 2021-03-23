@@ -24,8 +24,9 @@
     NSString *keyFile = [NSString stringWithFormat:@"%@/%@", path, @"key.pem" ];
     
     [super viewDidLoad];
+    MyPostCalBack *cb = [[MyPostCalBack alloc] init];
     self.sdk1 = [[MobileBcosSDK alloc]init];
-    MobileBuildSDKResult* result = [self.sdk1 buildSDKWithParam:keyFile groupId:1 chainId:1 isSMCrypto:false callback:[[MyPostCalBack alloc]init]];
+    MobileBuildSDKResult* result = [self.sdk1 buildSDKWithParam:keyFile callback:cb groupID:1 chainID:1 isSMCrypto:false];
     NSLog(@"is success: %s",result.isSuccess? "true" : "false");
 }
 
@@ -96,11 +97,19 @@
     UIAlertController *alertController;
     DataTypeTest *contract;
     contract = [DataTypeTest alloc];
-    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
+    //__weak typeof(self) weakSelf;
+    contract = [contract initWithAddress:self.contractAddress sdk:self.sdk1];
     double a = 10000000;
     unsigned int i = 9;
     long zero = 0;
 
+    for(int i= 0 ; i<2000; i++){
+        @autoreleasepool {
+            MobileReceiptResult *result = [contract storeUint:@"111" uint8Arg:i uint16Arg:i uint32Arg:i uint64Arg:a];
+            NSLog(@"Send tx %ld:",result.code);
+        }
+
+    }
     MobileReceiptResult *result = [contract storeUint:@"111" uint8Arg:i uint16Arg:i uint32Arg:i uint64Arg:a];
     if (result.code != zero){
         NSLog(@"send tx error : %@", result.message);
@@ -119,7 +128,7 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
     
-    MobileReceiptResult *result = [contract storeBigInt:@"111111111"];
+    MobileReceiptResult *result = [contract storeBigInt:@"12345678901234567890123456789012123456789012345678901234567890121234567890123456789012345678901212345678901234567890123456789012"];
     long zero = 0;
     if (result.code != zero){
         NSLog(@"send tx error : %@", result.message);
@@ -127,6 +136,29 @@
     }else{
         NSLog(@"send tx success : %@", result.receipt.blockNumber);
         alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.receipt.blockNumber preferredStyle:UIAlertControllerStyleAlert];
+    }
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (IBAction)SendStoreInt40:(id)sender {
+    UIAlertController *alertController;
+    DataTypeTest *contract;
+    contract = [DataTypeTest alloc];
+    contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
+    double a = 10000000;
+    NSString *b = @"-2837948734";
+    
+    MobileReceiptResult *result = [contract storeUintUnder64:a uint48Arg:a uint56Arg:a];
+    long zero = 0;
+    if (result.code != zero){
+        NSLog(@"send tx error : %@", result.message);
+        alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result.message preferredStyle:UIAlertControllerStyleAlert];
+    }else{
+        NSLog(@"send tx success : %@, message :%@", result.receipt.blockNumber, result.message);
+        MobileCallResult *result2 = [contract getUintUnder64];
+        NSLog(@"get result int128: %@",result2.result);
+       alertController = [UIAlertController alertControllerWithTitle:@"Result" message:result2.result preferredStyle:UIAlertControllerStyleAlert];
     }
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];
@@ -158,7 +190,7 @@
     contract = [DataTypeTest alloc];
     contract = [contract initWithAddress:_contractAddress sdk:_sdk1];
 
-    MobileReceiptResult *result = [contract storeFixedBytes:@"0x1" byte5Arg:@"0x123456"byte32Arg:@"0xfbb18d54e9ee57529cda8c7c52242efe879f064f"];
+    MobileReceiptResult *result = [contract storeFixedBytes:@"0x1" byte5Arg:@"0x000f888012"byte32Arg:@"616c736a646b6662637363646564736364656264736b6473646b766567656565"];
     long zero = 0;
     if (result.code != zero){
         NSLog(@"send tx error : %@", result.message);
